@@ -1,0 +1,26 @@
+version: '3.8'
+ 
+services:
+  backend:
+    build:
+      context: backend
+    container_name: final-cont
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+ 
+  frontend:
+    build:
+      context: frontend
+    container_name: frontend-cont
+    ports:
+      - "4200:80"
+    networks:
+      - app-network
+ 
+networks:
+  app-network:
+    driver: bridge
