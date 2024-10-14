@@ -1,0 +1,30 @@
+version: '3'
+
+networks:
+  finelassig-network:
+    driver: bridge
+
+services:
+  angular-app:
+    image: hotel-frontend-img 
+    container_name: hotel-frontend-cont
+    build:
+      context: ./frontend 
+      dockerfile: Dockerfile 
+    ports:
+      - "81:80"  
+    depends_on:
+    - spring-boot-app  
+    networks:
+      - finelassig-network
+
+  spring-boot-app:
+    image: hotel-backend-img  
+    container_name: hotel-backend-cont
+    build:
+      context: ./backend  
+      dockerfile: Dockerfile 
+    ports:
+      - "8083:8080" 
+    networks:
+      - finelassig-network
